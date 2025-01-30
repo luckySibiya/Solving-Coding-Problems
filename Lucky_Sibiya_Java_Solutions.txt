@@ -1,0 +1,102 @@
+
+Magic Potion Identifier
+import java.util.*;
+
+public class MagicPotion {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        long power = scanner.nextLong();
+        scanner.close();
+        
+        long cubeRoot = Math.round(Math.cbrt(power));
+        if (cubeRoot * cubeRoot * cubeRoot == power) {
+            System.out.println("YES");
+        } else {
+            System.out.println("NO");
+        }
+    }
+}
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Sneaky Outcomes
+import java.util.*;
+
+public class SneakyOutcomes {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> outcomes = new ArrayList<>();
+        while (scanner.hasNextInt()) {
+            outcomes.add(scanner.nextInt());
+        }
+        scanner.close();
+        
+        Set<Integer> seen = new HashSet<>();
+        List<Integer> duplicates = new ArrayList<>();
+
+        for (int num : outcomes) {
+            if (!seen.add(num)) {
+                duplicates.add(num);
+                if (duplicates.size() == 2) break;
+            }
+        }
+        System.out.println(duplicates);
+    }
+}
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Reformat String to Alternating Case
+import java.util.*;
+
+public class AlternateCase {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String s = scanner.nextLine();
+        scanner.close();
+
+        StringBuilder result = new StringBuilder();
+        boolean uppercase = true;
+
+        for (char c : s.toCharArray()) {
+            if (Character.isLetter(c)) {
+                result.append(uppercase ? Character.toUpperCase(c) : Character.toLowerCase(c));
+                uppercase = !uppercase;
+            } else {
+                result.append(c);
+            }
+        }
+        System.out.println(result.toString());
+    }
+}
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Organizing Books into Identical Sets
+import java.util.*;
+
+public class OrganizeBooks {
+    private static int gcd(int a, int b) {
+        return b == 0 ? a : gcd(b, a % b);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> shelf = new ArrayList<>();
+        while (scanner.hasNextInt()) {
+            shelf.add(scanner.nextInt());
+        }
+        scanner.close();
+
+        Map<Integer, Integer> countMap = new HashMap<>();
+        for (int num : shelf) {
+            countMap.put(num, countMap.getOrDefault(num, 0) + 1);
+        }
+
+        int gcdValue = 0;
+        for (int freq : countMap.values()) {
+            gcdValue = gcd(gcdValue, freq);
+        }
+
+        System.out.println(gcdValue > 1 ? "YES" : "NO");
+    }
+}
